@@ -14,3 +14,7 @@
 (deftest rand-bool-term-is-bool
 	(testing "Randomly selected boolean isn't actually boolean"
 		(is (= 'bool (return-type test-prob (rand-of-type test-prob 'bool))))))
+
+(deftest funcs-have-correct-num-args
+	(testing "+ doesn't have 2 args"
+		(is (= 2 (num-args test-prob '+)))))
