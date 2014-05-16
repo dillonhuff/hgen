@@ -7,6 +7,8 @@
 	[solution-type
 	functions
 	terminals
+	func-set
+	term-set
 	arg-types
 	types-to-vocab
 	vocab-to-types
@@ -29,6 +31,8 @@
 			sol-type
 			func-vec
 			term-vec
+			(set funcs)
+			(set terms)
 			arg-types
 			types-to-voc
 			(make-vocab-to-types types-to-voc)
@@ -57,3 +61,7 @@
 (defn num-args
 	[problem function]
 	(count ((:arg-types problem) function)))
+
+(defn is-func?
+	[problem value]
+	(contains? (:func-set problem) value))
