@@ -7,7 +7,7 @@
 		'bool
 		#{'and 'or '+}
 		#{'a 'b 'c 'n 'm}
-		{'a 'bool 'b 'bool 'c 'bool 'n 'int 'm 'int 'and 'bool 'or 'bool '+ 'int}
+		{'bool ['a 'b 'c 'and 'or] 'int ['n 'm '+]}
 		{'and ['bool 'bool] 'or ['bool 'bool] '+ ['int 'int]}
 		(fn [population] 1)))
 

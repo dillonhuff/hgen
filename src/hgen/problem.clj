@@ -7,23 +7,31 @@
 	[solution-type
 	functions
 	terminals
-	return-types
 	arg-types
 	types-to-vocab
+	vocab-to-types
 	fitness-function])
 
+(defn voc-to-types
+	[type-to-voc]
+	(let [vocab (second type-to-voc)]
+		(into {} (map (fn [v] {v (first type-to-voc)}) vocab))))
+
+(defn make-vocab-to-types
+	[types-to-vocab]
+	(reduce merge (map voc-to-types types-to-vocab)))
+
 (defn make-problem
-	[sol-type funcs terms ret-types arg-types fitness]
+	[sol-type funcs terms types-to-voc arg-types fitness]
 	(let [term-vec (vec terms)
-		func-vec (vec funcs)
-		vocab (concat term-vec func-vec)]
+		func-vec (vec funcs)]
 		(Problem.
 			sol-type
-			funcs
-			terms
-			ret-types
+			func-vec
+			term-vec
 			arg-types
-			(make-types-to-vocab vocab ret-types)
+			types-to-voc
+			(make-vocab-to-types types-to-voc)
 			fitness)))
 
 (defn solution-type
@@ -44,7 +52,7 @@
 
 (defn return-type
 	[problem value]
-	((:return-types problem) value))
+	((:vocab-to-types problem) value))
 
 (defn num-args
 	[problem function]
