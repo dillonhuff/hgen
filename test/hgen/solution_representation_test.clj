@@ -13,4 +13,9 @@
 		(fn [population] 1)))
 
 (deftest terminal-to-list
-	(is (= [1] (code-tree-to-list 1))))
+	(testing "terminal list failed"
+		(is (= [1] (code-tree-to-list 1)))))
+
+(deftest tree-to-list
+	(testing "complicated tree to code list failed"
+		(is (= ['+ '- 'x 'y '* 'y 3] (code-tree-to-list '(+ (- x y) (* y 3)))))))
