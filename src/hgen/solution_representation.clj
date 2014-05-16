@@ -24,3 +24,19 @@
 (defn list-to-code-tree
 	[problem code-list]
 	(rev-list-to-code-tree problem (reverse code-list) ()))
+
+(defn total-subtree-size
+	[problem code-list ind args-left size-so-far]
+	(if (= 0 args-left)
+		size-so-far
+		(let [head (nth code-list ind)]
+			(if (is-func? problem head)
+				(recur problem code-list (+ ind 1) (- (+ args-left (num-args problem head)) 1) (+ size-so-far 1))
+				(recur problem code-list (+ ind 1) (- args-left 1) (+ size-so-far 1))))))
+
+(defn subtree-size
+	[problem code-list subtree-start-index]
+	(let [head (nth code-list subtree-start-index)]
+		(if (is-func? problem head)
+			(total-subtree-size problem code-list (+ 1 subtree-start-index) (num-args problem head) 1)
+			1)))

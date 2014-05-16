@@ -24,6 +24,18 @@
 	(testing "terminal subtree does not have size 1"
 		(is (= 1 (subtree-size test-prob ['not 'x] 1)))))
 
+(deftest unary-func-subtree-size
+	(testing "unary func subtree does not have size 2"
+		(is (= 2 (subtree-size test-prob ['not 'x] 0)))))
+
+(deftest complicated-func-subtree-size-1
+	(testing "complicated subtree has wrong size"
+		(is (= 8 (subtree-size test-prob ['not '> '+ 'n 'm '* 'n 'not 'x] 1)))))
+
+(deftest complicated-func-subtree-size-2
+	(testing "complicated subtree has wrong size"
+		(is (= 3 (subtree-size test-prob ['not '> '+ 'n 'm '* 'n 'not 'x] 2)))))
+
 (deftest terminal-to-list
 	(testing "terminal list failed"
 		(is (= [1] (code-tree-to-list 1)))))
