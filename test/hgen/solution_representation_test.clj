@@ -36,6 +36,18 @@
 	(testing "complicated subtree has wrong size"
 		(is (= 3 (subtree-size test-prob ['not '> '+ 'n 'm '* 'n 'not 'x] 2)))))
 
+(deftest swap-location-is-start
+	(testing "split at start not correct"
+		(is (= ['not '> 'n 'm] (:swap (break-into-start-swap-end test-prob ['not '> 'n 'm] 0))))))
+
+(deftest swap-location-is-end
+	(testing "split at end was not correct"
+		(is (= ['n] (:swap (break-into-start-swap-end test-prob ['+ '* 'n 'n '+ 'm 'n] 6))))))
+
+(deftest swap-location-is-mid
+	(testing "split in middle was not correct"
+		(is (= ['+ 'n 'm] (:swap (break-into-start-swap-end test-prob ['> 'n '+ '+ 'n 'm 'n] 3))))))
+
 (deftest terminal-to-list
 	(testing "terminal list failed"
 		(is (= [1] (code-tree-to-list 1)))))
