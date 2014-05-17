@@ -59,11 +59,25 @@
 	[swap-recipient swap-giver]
 	(list-to-code-tree (concat (swap-recipient :start) (swap-giver :swap) (swap-recipient :end))))
 
+(defn select-rand-loc-of-type
+	[type problem code-list]
+	(let [potential-loc (rand-int (count code-list))
+		potential-type (return-type problem (nth code-list potential-loc))]
+		(if (= type potential-type)
+			potential-loc
+			(recur type problem code-list))))
+
+(defn select-swap-locations
+	[problem father mother]
+	(let [father-swap-loc (rand-int (count father))
+		father-subtree-type (return-type problem (nth father father-swap-loc))
+		mother-swap-loc (select-rand-loc-of-type father-subtree-type problem mother)]
+		{:father-loc father-swap-loc :mother-loc mother-swap-loc}))
+
 (defn swap-code-lists
-	[father-list mother-list]
-	(let [father-swap-location (rand-int (count father-list))
-		mother-swap-location (rand-int (count father-list))
-		father-code-regions (break-into-start-swap-end father-list father-swap-location)
-		mother-code-regions (break-into-start-swap-end mother-list mother-swap-location)]
+	[problem father-list mother-list]
+	(let [swap-locations (select-swap-locations problem father-list mother-list)
+		father-code-regions (break-into-start-swap-end problem father-list (swap-locations :father-loc))
+		mother-code-regions (break-into-start-swap-end problem mother-list (swap-locations :mother-loc))]
 		{:father-child (swap-segmented-code father-code-regions mother-code-regions)
 			:mother-child (swap-segmented-code mother-code-regions father-code-regions)}))
