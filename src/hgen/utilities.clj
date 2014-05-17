@@ -10,3 +10,16 @@
 	(if (>= cum-cdf cum-val)
 		ind
 		(recur cum-val (+ (nth cdf ind) cum-cdf) (+ ind 1) cdf)))
+
+; Map utilities
+
+(defn sort-map-by-value
+	[map-to-sort]
+	(into (sorted-map-by
+		(fn [key1 key2]
+			(let [val1 (map-to-sort key1)
+				val2 (map-to-sort key2)]
+				(if (< val1 val2)
+					1
+					-1))))
+		map-to-sort))
