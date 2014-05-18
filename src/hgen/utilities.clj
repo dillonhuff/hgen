@@ -46,3 +46,8 @@
 					1
 					-1))))
 		map-to-sort))
+
+; Code generation utilities
+(defn make-func
+	[args code]
+	(list 'fn (vec args) code))

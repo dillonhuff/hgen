@@ -27,3 +27,16 @@
 (defn rand-init-population
 	[problem population-size]
 	(rand-pop problem population-size []))
+
+(defn run-gp
+	[problem population max-generations cur-gen-num]
+	(if (= max-generations cur-generation)
+		population
+		(let [next-generation (new-generation problem population)
+			next-gen-num (+ cur-gen-num 1)]
+			(recur problem next-generation max-generations next-gen-num))))
+
+(defn evolve-program
+	[problem population-size num-generations]
+	(let [init-pop (rand-init-population problem population-size)]
+		(run-gp problem init-pop num-generations 0)))

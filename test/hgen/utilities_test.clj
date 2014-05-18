@@ -11,3 +11,7 @@
 		(is (= 
 			{:outcomes [1 4 6 9] :cdf [0.2 0.5 0.75 1.0]}
 			(outcome-prob-map-to-outcomes-cdf {1 0.2 4 0.3 6 0.25 9 0.25})))))
+
+(deftest make-add-func
+	(testing "add two numbers function not made correctly"
+		(is (= 5 ((eval (make-func ['x 'y] '(+ x y))) 2 3)))))
