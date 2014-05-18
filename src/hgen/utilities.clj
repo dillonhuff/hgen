@@ -58,3 +58,10 @@
 (defn make-func
 	[args code]
 	(list 'fn (vec args) code))
+
+; Fitness function utilities
+(defn normalized-fitness
+	"Convert map from individual to fitnesses into map from individuals to normalized fitnesses"
+	[ind-to-fitness]
+	(let [total-fitness (reduce + (map second ind-to-fitness))]
+		(into {} (map (fn [kv] {(first kv) (/ (second kv) total-fitness)}) ind-to-fitness))))

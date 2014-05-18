@@ -15,3 +15,11 @@
 (deftest make-add-func
 	(testing "add two numbers function not made correctly"
 		(is (= 5 ((eval (make-func ['x 'y] '(+ x y))) 2 3)))))
+
+(deftest normalized-fitness-one-ind
+	(testing "one items fitness is changed by normalized fitness"
+		(is (= {:a 1.0} (normalized-fitness {:a 1.0})))))
+
+(deftest normalized-fitness-many-ind
+	(testing "several individuals normalized fitness computed wrong"
+		(is (= {:a (/ 3.5 7.0) :b (/ 1.2 7.0) :c (/ 2.3 7.0)} (normalized-fitness {:a 3.5 :b 1.2 :c 2.3})))))
