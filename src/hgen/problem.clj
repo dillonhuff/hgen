@@ -85,7 +85,7 @@
 
 (defn rand-init-individual
 	[problem]
-	(let [rand-root (rand-of-type (solution-type problem))]
+	(let [rand-root (rand-of-type problem (solution-type problem))]
 		(if (is-func? problem rand-root)
 			(conj (rand-term-args problem (type-signature rand-root)) rand-root)
 			(rand-init-individual problem))))

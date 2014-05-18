@@ -35,4 +35,8 @@
 		#{'d0 'd1}
 		{'bool #{'and 'or 'not 'd0 'd1}}
 		{'and ['bool 'bool] 'or ['bool 'bool] 'not ['bool]}
-		(fn [population] 1)))
+		population-fitness))
+
+(defn run-xor
+	[population-size number-of-generations]
+	(evolve-program xor-problem population-size number-of-generations))
