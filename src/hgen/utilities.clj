@@ -47,7 +47,14 @@
 					-1))))
 		map-to-sort))
 
+; Boolean manipulation utilities
+
+(defn bool-to-num
+	[bool]
+	(if bool 1 0))
+
 ; Code generation utilities
+
 (defn make-func
 	[args code]
 	(list 'fn (vec args) code))

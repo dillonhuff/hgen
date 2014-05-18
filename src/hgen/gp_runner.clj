@@ -1,6 +1,7 @@
 (ns hgen.gp-runner
 	(:require [hgen.problem :refer :all]
-		[hgen.solution-representation :refer :all]))
+		[hgen.solution-representation :refer :all]
+		[hgen.utilities :refer :all]))
 
 (defn make-generation
 	[problem outcomes-and-cdf old-population new-population]
@@ -14,7 +15,7 @@
 (defn new-generation
 	[problem old-population]
 	(let [population-size (count old-population)
-		pop-to-fitness (fitness problem old-population)
+		pop-to-fitness (fitness problem (map (partial list-to-code-tree problem) old-population))
 		outcomes-and-cdf (outcome-prob-map-to-outcomes-cdf pop-to-fitness)]
 		(make-generation problem outcomes-and-cdf old-population [])))
 
@@ -30,7 +31,7 @@
 
 (defn run-gp
 	[problem population max-generations cur-gen-num]
-	(if (= max-generations cur-generation)
+	(if (= max-generations cur-gen-num)
 		population
 		(let [next-generation (new-generation problem population)
 			next-gen-num (+ cur-gen-num 1)]
