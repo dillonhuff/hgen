@@ -31,8 +31,8 @@
 	"Sample from a vector according to probability"
 	[outcomes-to-cdf]
 	(let [outcomes (outcomes-to-cdf :outcomes)
-		cdf (outcomes-to-cdf :cdf)])
-	(nth outcomes (r-sample (rand 1.0) (first cdf) 0 cdf)))
+		cdf (outcomes-to-cdf :cdf)]
+		(nth outcomes (r-sample (rand 1.0) (first cdf) 0 cdf))))
 
 ; Map utilities
 

@@ -54,9 +54,18 @@
 	[problem type]
 	(rand-nth ((:types-to-vocab problem) type)))
 
+(defn rand-term-of-type
+	[problem type]
+	(let [vals-of-type (get (:types-to-vocab problem) type)]
+		(rand-nth (filter (fn [t] (contains? vals-of-type t)) (:terminals problem)))))
+
 (defn return-type
 	[problem value]
 	((:vocab-to-types problem) value))
+
+(defn type-signature
+	[problem function]
+	((:arg-types problem) function))
 
 (defn num-args
 	[problem function]
@@ -65,3 +74,18 @@
 (defn is-func?
 	[problem value]
 	(contains? (:func-set problem) value))
+
+(defn fitness
+	[problem population]
+	((:fitness problem) population))
+
+(defn rand-term-args
+	[problem types]
+	(mapcat list (map rand-term-of-type types)))
+
+(defn rand-init-individual
+	[problem]
+	(let [rand-root (rand-of-type (solution-type problem))]
+		(if (is-func? problem rand-root)
+			(conj (rand-term-args problem (type-signature rand-root)) rand-root)
+			(rand-init-individual problem))))
