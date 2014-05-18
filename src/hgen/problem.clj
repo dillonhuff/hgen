@@ -52,7 +52,7 @@
 
 (defn rand-of-type
 	[problem type]
-	(rand-nth ((:types-to-vocab problem) type)))
+	(rand-nth (into [] ((:types-to-vocab problem) type))))
 
 (defn rand-term-of-type
 	[problem type]
@@ -77,15 +77,15 @@
 
 (defn fitness
 	[problem population]
-	((:fitness problem) population))
+	((:fitness-function problem) population))
 
 (defn rand-term-args
 	[problem types]
-	(mapcat list (map rand-term-of-type types)))
+	(mapcat list (map (partial rand-term-of-type problem) types)))
 
 (defn rand-init-individual
 	[problem]
 	(let [rand-root (rand-of-type problem (solution-type problem))]
 		(if (is-func? problem rand-root)
-			(conj (rand-term-args problem (type-signature rand-root)) rand-root)
+			(conj (rand-term-args problem (type-signature problem rand-root)) rand-root)
 			(rand-init-individual problem))))

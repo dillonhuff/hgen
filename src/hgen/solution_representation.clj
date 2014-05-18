@@ -57,7 +57,7 @@
 
 (defn swap-segmented-code
 	[swap-recipient swap-giver]
-	(list-to-code-tree (concat (swap-recipient :start) (swap-giver :swap) (swap-recipient :end))))
+	(concat (swap-recipient :start) (swap-giver :swap) (swap-recipient :end)))
 
 (defn select-rand-loc-of-type
 	[type problem code-list]

@@ -9,8 +9,10 @@
 		new-population
 		(let [father (rand-sample outcomes-and-cdf)
 			mother (rand-sample outcomes-and-cdf)
-			child (swap-code-lists father mother)]
-			(recur problem outcomes-and-cdf old-population (conj new-population child)))))
+			offspring (swap-code-lists problem father mother)
+			father-child (:father-child offspring)
+			mother-child (:mother-child offspring)]
+			(recur problem outcomes-and-cdf old-population (conj (conj new-population mother-child) father-child)))))
 
 (defn new-generation
 	[problem old-population]
