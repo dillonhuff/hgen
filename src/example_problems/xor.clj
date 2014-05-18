@@ -17,16 +17,15 @@
 (defn ind-fitness
 	"Measures absolute fitness of a single individual"
 	[individual]
-	(let [guesses [true true true];(map (fn [d0-d1] (individual (first d0-d1) (second d0-d1))) test-cases)
+	(let [guesses (map (fn [d0-d1] ((eval individual) (first d0-d1) (second d0-d1))) test-cases)
 		num-correct (reduce + (map bool-to-num guesses))]
 		(/ num-correct (float (count test-cases)))))
 
 (defn population-fitness
 	[population]
 	(let [candidate-solutions (map (fn [code] (make-func '[d0 d1] code)) population)
-		ind-fitnesses (map ind-fitness candidate-solutions)
-		ind-to-fitness (zipmap population ind-fitnesses)]
-		(normalized-fitness ind-to-fitness)))
+		ind-fitnesses (pmap ind-fitness candidate-solutions)]
+		(normalized-fitness ind-fitnesses)))
 
 (def xor-problem
 	(make-problem

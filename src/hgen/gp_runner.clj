@@ -16,8 +16,7 @@
 
 (defn new-generation
 	[problem old-population]
-	(let [population-size (count old-population)
-		pop-to-fitness (fitness problem (map (partial list-to-code-tree problem) old-population))
+	(let [pop-to-fitness (into {} (map vector old-population (fitness problem (pmap (partial list-to-code-tree problem) old-population))))
 		outcomes-and-cdf (outcome-prob-map-to-outcomes-cdf pop-to-fitness)]
 		(make-generation problem outcomes-and-cdf old-population [])))
 

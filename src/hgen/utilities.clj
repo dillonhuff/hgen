@@ -23,7 +23,7 @@
 
 (defn r-sample
 	[cum-val cum-cdf ind cdf]
-	(if (>= cum-cdf cum-val)
+	(if (or (>= cum-cdf cum-val) (= ind (- (count cdf) 1)))
 		ind
 		(recur cum-val (+ (nth cdf ind) cum-cdf) (+ ind 1) cdf)))
 
@@ -62,6 +62,6 @@
 ; Fitness function utilities
 (defn normalized-fitness
 	"Convert map from individual to fitnesses into map from individuals to normalized fitnesses"
-	[ind-to-fitness]
-	(let [total-fitness (reduce + (map second ind-to-fitness))]
-		(into {} (map (fn [kv] {(first kv) (/ (second kv) total-fitness)}) ind-to-fitness))))
+	[fitness-scores]
+	(let [total-fitness (reduce + fitness-scores)]
+		(map (fn [fit] (/ fit total-fitness)) fitness-scores)))

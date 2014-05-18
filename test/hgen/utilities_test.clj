@@ -18,8 +18,8 @@
 
 (deftest normalized-fitness-one-ind
 	(testing "one items fitness is changed by normalized fitness"
-		(is (= {:a 1.0} (normalized-fitness {:a 1.0})))))
+		(is (= [1.0] (normalized-fitness [1.0])))))
 
 (deftest normalized-fitness-many-ind
 	(testing "several individuals normalized fitness computed wrong"
-		(is (= {:a (/ 3.5 7.0) :b (/ 1.2 7.0) :c (/ 2.3 7.0)} (normalized-fitness {:a 3.5 :b 1.2 :c 2.3})))))
+		(is (= [(/ 3.5 7.0) (/ 1.2 7.0) (/ 2.3 7.0)] (normalized-fitness [3.5 1.2 2.3])))))
